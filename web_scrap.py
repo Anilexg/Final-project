@@ -24,4 +24,3 @@ def scrape_table(url):
 
 
 # scrape_table("https://get.data.gov.lt/datasets/gov/hi/profesines/Asmuo")
-# scrape_table("https://get.data.gov.lt/datasets/gov/hi/profesines/DarboStazas")
