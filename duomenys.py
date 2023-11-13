@@ -13,9 +13,11 @@ import psycopg2
 #
 # Kadangi interneto svetaineje yra apribojimas iki 100 eilučių, mūsų pasirinktas variantas netenkina, todėl tenka kreiptis į
 # duomenu bazeje pateiktus csv failus, kad analizė būtų vaizdingesnė ir pilnesnė.
-
-url = "https://get.data.gov.lt/datasets/gov/hi/profesines/Asmuo/:format/csv"
-Asmuo = pd.read_csv(url)
-Asmuo = Asmuo.drop(['_type', '_id', '_revision','m_id','pagr_tlk_kodas._id','pagr_tlk_pav._id','papild_tlk_kodas._id',
+def get_data():
+    url = "https://get.data.gov.lt/datasets/gov/hi/profesines/Asmuo/:format/csv"
+    Asmuo = pd.read_csv(url)
+    Asmuo = Asmuo.drop(['_type', '_id', '_revision','m_id','pagr_tlk_kodas._id','pagr_tlk_pav._id','papild_tlk_kodas._id',
                     'papild_tlk_pav._id'], axis=1)
-Asmuo.to_csv("Asmuo_new.csv", index=False)
+
+    return Asmuo
+get_data().to_csv("Asmuo_new.csv", index=False)
