@@ -1,0 +1,10 @@
+requests
+BeautifulSoup4
+psycopg2
+pandas
+selenium
+seaborn
+webdriver_manager
+matplotlib
+pip
+scipy
