@@ -21,7 +21,7 @@ def pagal_savivaldybes():
     plt.title('Profesinių ligų pasiskirstymas pagal savivaldybes 2022 metais')
     plt.ylabel('Atvejų_skaičius')
     plt.xticks(rotation=25,ha='right')
-    plt.legend([]) # panaikinam legenda
+    plt.legend([])
     plt.savefig("pagal_savivaldybes_2022.png")
     plt.tight_layout()
     plt.show()
@@ -34,17 +34,33 @@ def profesiniu_lig_daz(year):
     prof_lig_dazn_per_pas_met = prof_lig_dazn_per_pas_met[prof_lig_dazn_per_pas_met > 10]
     colors = ["lightskyblue", "lightcoral", "yellowgreen", "pink", "lightgreen", "purple"]
     plt.pie(prof_lig_dazn_per_pas_met, labels=prof_lig_dazn_per_pas_met.index, autopct='%1.1f%%', startangle=90,
-            colors=colors)
-    plt.title("Profesinės ligos pagal priežastis ")
+            colors=colors,textprops={'fontsize': 6})
+    plt.title(f'{year} metų\n' "Profesinės ligos pagal priežastis ")
     plt.savefig("profesines_lig_pagal_priez.png")
     plt.show()
 
 #Profesinių ligų pasiskirstymas pagal lytį
 def lytis():
-    pagal_lytis = Asmuo.groupby('lyties_pavadinimas')['priezasties_pav'].count()
-    
+    year_start = 2013
+    year_end = 2023
+    lyties_df = Asmuo[Asmuo['year'].between(year_start, year_end)]
+    rezultatas = lyties_df.groupby(['year', 'lyties_pavadinimas'])['priezasties_pav'].count().unstack(fill_value=0)
+    plt.figure(figsize=(10, 6))
+    rezultatas.plot(kind='line', marker='o')
+    plt.title('Profesinių ligų pasiskirstymas pagal lytį ir metus')
+    plt.xlabel('Metai')
+    plt.ylabel('Atvejų skaičius')
+    plt.xticks(rotation=25, ha='right')
+    plt.legend(title='Lytis', loc='upper right')
+    plt.tight_layout()
+    plt.savefig("lytis_linijinis.png")
+    plt.show()
 
 
 
-pagal_savivaldybes()
-profesiniu_lig_daz(2022)
+
+
+
+# pagal_savivaldybes()
+# profesiniu_lig_daz(2020)
+# lytis()
