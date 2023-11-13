@@ -26,12 +26,10 @@ def pagal_savivaldybes():
     plt.tight_layout()
     plt.show()
 
-
-
 #Profesinės ligos ir jų dažnis
 
 def profesiniu_lig_daz(year):
-    year =year
+    year = year
     prof_lig_dazn_per_pas_met = Asmuo[Asmuo['year'] == year].groupby('priezasties_pav')['savivaldybe'].count()
     prof_lig_dazn_per_pas_met = prof_lig_dazn_per_pas_met[prof_lig_dazn_per_pas_met > 10]
     colors = ["lightskyblue", "lightcoral", "yellowgreen", "pink", "lightgreen", "purple"]
@@ -41,6 +39,10 @@ def profesiniu_lig_daz(year):
     plt.savefig("profesines_lig_pagal_priez.png")
     plt.show()
 
+#Profesinių ligų pasiskirstymas pagal lytį
+def lytis():
+    pagal_lytis = Asmuo.groupby('lyties_pavadinimas')['priezasties_pav'].count()
+    
 
 
 
