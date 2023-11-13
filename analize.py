@@ -46,5 +46,5 @@ def lytis():
 
 
 
-# pagal_savivaldybes()
-# profesiniu_lig_daz(2022)
+pagal_savivaldybes()
+profesiniu_lig_daz(2022)
