@@ -81,7 +81,54 @@ def kitimas_metais():
     plt.savefig("Pictures\pokytis.png")
     plt.show()
 
+def regresija():
+    year_start = 2013
+    year_end = 2023
+    filtruoti_duomenys = Asmuo[Asmuo['year'].between(year_start, year_end)]
+
+    rezultatas = filtruoti_duomenys.groupby(['savivaldybe', 'year']).size().unstack(fill_value=0)
+
+    rezultatas_per_metus_savivaldybe = rezultatas.sum(axis=1)
+
+    filtruota_savivaldybes = rezultatas_per_metus_savivaldybe[rezultatas_per_metus_savivaldybe > 0].index
+
+    filtruoti_rezultatas = rezultatas.loc[filtruota_savivaldybes]
+
+    filtruoti_rezultatas_ilgis = filtruoti_rezultatas.reset_index().melt(id_vars='savivaldybe', var_name='year',
+                                                                         value_name='count')
+    filtruoti_rezultatas_ilgis['year'] = pd.to_numeric(filtruoti_rezultatas_ilgis['year'], errors='coerce')
+
+    filtruoti_rezultatas_ilgis = filtruoti_rezultatas_ilgis.dropna(subset=['year'])
+
+    filtruoti_rezultatas_ilgis['year'] = filtruoti_rezultatas_ilgis['year'].astype(int)
+
+    plt.figure(figsize=(15, 7))
+    plt.title('Tendencijų linijos pagal Savivaldybe ir metus')
+    plt.xlabel('Metai')
+    plt.ylabel('Skaičius')
+    plt.xticks(rotation=45, ha='right')
+
+    slopes = {}
+
+    for name, group in filtruoti_rezultatas_ilgis.groupby('savivaldybe'):
+        slope, intercept, r_value, p_value, std_err = linregress(x=group['year'], y=group['count'])
+        slopes[name] = slope
+    for name, group in filtruoti_rezultatas_ilgis.groupby('savivaldybe'):
+        if slopes[name] > 0:
+            sns.regplot(
+                x='year', y='count', data=group,
+                label=name, scatter_kws={'s': 50},
+                line_kws={'linewidth': 2}, ci=None
+            )
+    plt.legend(title='Savivaldybe', bbox_to_anchor=(1.05, 1), loc='upper left')
+    plt.tight_layout()
+    plt.savefig("Pictures\ regresija.png")
+    plt.show()
+
+
+
 # kitimas_metais()
 # pagal_savivaldybes()
 # profesiniu_lig_daz(2020)
 # lytis()
+regresija()
