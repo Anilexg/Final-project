@@ -1,8 +1,9 @@
 import pandas as pd
+import seaborn as sns
+
 from duomenys import get_data
 import matplotlib.pyplot as plt
 import requests
-import psycopg2
 import psycopg2
 from scipy.stats import linregress
 
@@ -56,6 +57,31 @@ def lytis():
     plt.savefig("lytis_linijinis.png")
     plt.show()
 
+#Profesinių ligų skaičiaus kitimas savivaldybėse pasirinktų metų intervale
+def kitimas_metais():
+
+    year_start = 2005
+    year_end = 2023
+    filtruoti_duomenys = Asmuo[Asmuo['year'].between(year_start, year_end)]
+    rezultatas = filtruoti_duomenys.groupby(['savivaldybe', 'year']).size().unstack(fill_value=0)
+    rezultatas = rezultatas[rezultatas >= 1]
+    rezultatas = rezultatas.dropna()
+
+    rezultato_ilgis = rezultatas.reset_index().melt(id_vars='savivaldybe', var_name='year', value_name='count')
+    sns.set_theme(style="darkgrid")
+    plt.figure(figsize=(15, 7))
+    sns.lineplot(data=rezultato_ilgis, x='year', y='count', hue='savivaldybe', marker='o')
+    sns.color_palette("dark:#5A9_r", as_cmap=True)
+    plt.title(f'Profesinių ligų skaičiaus kitimas savivaldybėse {year_start}-{year_end} metais')
+    plt.xlabel('Metai')
+    plt.ylabel('Ligų skaičius')
+    plt.xticks(rotation=45, ha='right')
+    plt.legend(title='Savivaldybe', bbox_to_anchor=(1.05, 1), loc='upper left')
+    plt.tight_layout()
+    plt.savefig("pokytis_.png")
+    plt.show()
+
+kitimas_metais()
 
 
 
