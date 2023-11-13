@@ -11,13 +11,6 @@ import psycopg2
 #
 # asmuo.to_csv("asmenys.csv", index=False)
 #
-#
-# darbo_stazas=scrape_table("https://get.data.gov.lt/datasets/gov/hi/profesines/DarboStazas")
-# darbo_stazas = pd.DataFrame(darbo_stazas, columns=['id','atvejis_id','pagr_tlk_kodas._id','pagr_tlk_pav._id',
-#                                                    'lpk','evrk','stazas','year','quarter'])
-#
-# darbo_stazas.to_csv("darbo_stazas.csv", index=False)
-
 # Kadangi interneto svetaineje yra apribojimas iki 100 eilučių, mūsų pasirinktas variantas netenkina, todėl tenka kreiptis į
 # duomenu bazeje pateiktus csv failus, kad analizė būtų vaizdingesnė ir pilnesnė.
 
