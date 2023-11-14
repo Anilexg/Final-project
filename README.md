@@ -5,7 +5,7 @@
 
 Created by: Lina Gegužienė and Renata Šimkevičienė
 
-This is the end project of Data analysis course at Vilnius Coding School
+This is the end project of Data analysis course at Vilnius Coding School.
 
 Project theme:  Occupational Diseases data analysis and visualization
 
