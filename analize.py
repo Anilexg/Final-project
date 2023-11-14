@@ -66,10 +66,11 @@ def kitimas_metais():
     rezultatas = rezultatas.dropna()
 
     rezultato_ilgis = rezultatas.reset_index().melt(id_vars='savivaldybe', var_name='year', value_name='count')
-    sns.set_theme(style="darkgrid")
+    palette = sns.color_palette("Paired", n_colors=len(rezultato_ilgis['savivaldybe'].unique()))
+    # sns.set_theme(style="darkgrid")
     plt.figure(figsize=(15, 7))
-    sns.lineplot(data=rezultato_ilgis, x='year', y='count', hue='savivaldybe', marker='o')
-    sns.color_palette("dark:#5A9_r", as_cmap=True)
+    sns.lineplot(data=rezultato_ilgis, x='year', y='count', hue='savivaldybe', marker='o', palette=palette)
+    # sns.color_palette("dark:#5A9_r", as_cmap=True)
     plt.title(f'Profesinių ligų skaičiaus kitimas savivaldybėse {year_start}-{year_end} metais')
     plt.xlabel('Metai')
     plt.ylabel('Ligų skaičius')
@@ -125,8 +126,8 @@ def regresija():
 
 
 
-# kitimas_metais()
-pagal_savivaldybes()
+kitimas_metais()
+# pagal_savivaldybes()
 # profesiniu_lig_daz(2019)
 # lytis()
 # regresija()
