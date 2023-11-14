@@ -11,7 +11,7 @@ def connect_db():
         'database':'postgres',
         'dbname': 'Profes_ligos',
         'user': 'postgres',
-        'password': '23duomenubaze23',
+        'password': 'Jokubas2017',
         'host': 'localhost'
     }
     return db_params
@@ -70,7 +70,7 @@ db_params = {
     'host': 'localhost',
     'port': '5432',
     'user': 'postgres',
-    'password': '23duomenubaze23',
+    'password': 'Jokubas2017',
     'database': 'Profes_ligos',
 }
 

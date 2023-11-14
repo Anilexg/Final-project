@@ -37,7 +37,7 @@ def profesiniu_lig_daz(year):
     plt.pie(prof_lig_dazn_per_pas_met, labels=prof_lig_dazn_per_pas_met.index, autopct='%1.1f%%', startangle=90,
             colors=colors,textprops={'fontsize': 6})
     plt.title(f'{year} metų\n' "Profesinės ligos pagal priežastis ")
-    plt.savefig("Pictures\profesines_lig_pagal_priez.png")
+    plt.savefig("Pictures\profesines_lig_pagal_dazni.png")
     plt.show()
 
 #Profesinių ligų pasiskirstymas pagal lytį
@@ -129,6 +129,6 @@ def regresija():
 
 # kitimas_metais()
 # pagal_savivaldybes()
-profesiniu_lig_daz(2019)
+# profesiniu_lig_daz(2019)
 # lytis()
-regresija()
+# regresija()
