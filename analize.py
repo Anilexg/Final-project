@@ -126,7 +126,7 @@ def regresija():
 
 
 # kitimas_metais()
-# pagal_savivaldybes()
-profesiniu_lig_daz(2019)
+pagal_savivaldybes()
+# profesiniu_lig_daz(2019)
 # lytis()
 # regresija()
