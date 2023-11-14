@@ -5,18 +5,6 @@ import psycopg2
 from psycopg2 import sql
 
 
-#Prisijungimo prie DB parametrai
-def connect_db():
-    db_params = {
-        'database':'postgres',
-        'dbname': 'Profes_ligos',
-        'user': 'postgres',
-        'password': 'Jokubas2017',
-        'host': 'localhost'
-    }
-    return db_params
-
-
 #Kuriama DB
 def creat_database(dbname,user,password,host, port,new_dbname,**kwargs):
     db_params={
@@ -70,7 +58,7 @@ db_params = {
     'host': 'localhost',
     'port': '5432',
     'user': 'postgres',
-    'password': 'Jokubas2017',
+    'password': '23duomenubaze23',
     'database': 'Profes_ligos',
 }
 
