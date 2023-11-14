@@ -13,7 +13,8 @@ def pagal_savivaldybes():
     year = 2022
 
     pagal_regiona=Asmuo[Asmuo['year'] == year].groupby('savivaldybe')['year'].count()
-    pagal_regiona = pagal_regiona[pagal_regiona> 5]
+    pagal_regiona_sorted = pagal_regiona.sort_values(ascending=False)
+    pagal_regiona = pagal_regiona_sorted[pagal_regiona_sorted> 5]
     plt.figure(figsize=(14,10))
     pagal_regiona.plot(kind='bar', color='green')
     plt.title('Profesinių ligų pasiskirstymas pagal savivaldybes 2022 metais')
