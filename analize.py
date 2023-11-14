@@ -131,4 +131,4 @@ def regresija():
 # pagal_savivaldybes()
 profesiniu_lig_daz(2019)
 # lytis()
-# regresija()
+regresija()
