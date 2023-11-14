@@ -1,7 +1,37 @@
 from sqlalchemy import create_engine
 from duomenys import get_data
 import pandas as pd
+import psycopg2
+from psycopg2 import sql
 
+def connect_db():
+    conn_params = {
+        'database':'postgres',
+        'dbname': 'Profes_ligos',
+        'user': 'postgres',
+        'password': '23duomenubaze23',
+        'host': 'localhost'
+    }
+    return conn_params
+def creat_database(dbname,user,password,host, port,new_dbname,**kwargs):
+    conn_params={
+        "database":dbname,
+        "user":user,
+        "password":password,
+        "host":host,
+        "port":port
+    }
+    try:
+        connection=psycopg2.connect(**conn_params)
+        connection.autocommit=True
+        cursor=connection.cursor()
+        cursor.execute(sql.SQL('CREATE DATABASE {}').format(sql.Identifier(new_dbname)))
+        print(f'database {new_dbname} created secsesfuli')
+        cursor.close()
+        connection.close()
+    except psycopg2.Error as e:
+        print(f'An Error occured while creating the database{e}')
+# creat_database("postgres","postgres",'23duomenubaze23','localhost',5432,'Profes_ligos') ##funkcijos kvietimas
 def write_to_database(df, table_name, db_params):
     # Sukuriame sujungimą su duomenu baze
     engine = create_engine(f'postgresql://{db_params["user"]}:{db_params["password"]}@{db_params["host"]}:{db_params["port"]}/{db_params["database"]}')
@@ -35,7 +65,7 @@ db_params = {
     'host': 'localhost',
     'port': '5432',
     'user': 'postgres',
-    'password': 'Jokubas2017',
+    'password': '23duomenubaze23',
     'database': 'Profes_ligos',
 }
 
