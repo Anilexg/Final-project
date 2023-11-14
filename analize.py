@@ -1,10 +1,7 @@
 import pandas as pd
 import seaborn as sns
-
 from duomenys import get_data
 import matplotlib.pyplot as plt
-import requests
-import psycopg2
 from scipy.stats import linregress
 
 Asmuo = get_data()
@@ -33,7 +30,7 @@ def profesiniu_lig_daz(year):
     year = year
     prof_lig_dazn_per_pas_met = Asmuo[Asmuo['year'] == year].groupby('priezasties_pav')['savivaldybe'].count()
     prof_lig_dazn_per_pas_met = prof_lig_dazn_per_pas_met[prof_lig_dazn_per_pas_met > 1]
-    colors = ["lightskyblue", "lightcoral", "yellowgreen", "pink", "lightgreen", "purple"]
+    colors = ["lightskyblue", "lightcoral", "darkgreen", "pink", "lightgreen", "purple", "orange"]
     plt.pie(prof_lig_dazn_per_pas_met, labels=prof_lig_dazn_per_pas_met.index, autopct='%1.1f%%', startangle=90,
             colors=colors,textprops={'fontsize': 6})
     plt.title(f'{year} metų\n' "Profesinės ligos pagal priežastis ")
@@ -129,6 +126,6 @@ def regresija():
 
 # kitimas_metais()
 # pagal_savivaldybes()
-# profesiniu_lig_daz(2019)
+profesiniu_lig_daz(2019)
 # lytis()
 # regresija()

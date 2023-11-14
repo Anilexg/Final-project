@@ -1,9 +1,5 @@
 import pandas as pd
-# from web_scrap import scrape_table
-import matplotlib.pyplot as plt
-import requests
-from bs4 import BeautifulSoup
-import psycopg2
+
 
 
 # asmuo=scrape_table("https://get.data.gov.lt/datasets/gov/hi/profesines/Asmuo")
