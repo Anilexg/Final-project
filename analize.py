@@ -9,17 +9,17 @@ Asmuo = get_data()
 # Gautus duomenis paverčiame į DataFrame
 Asmuo = pd.DataFrame(Asmuo)
 
-#Profesinių ligų pasiskirstymas pagal savivaldybes pasirinktų metų intervale
+# Profesinių ligų pasiskirstymas pagal savivaldybes pasirinktų metų intervale
 def pagal_savivaldybes(year_start,year_end):
     year_start = year_start
     year_end = year_end
-    #Išrenkame duomenis iš Asmuo, tarp nurodytų metų intervalo
+    # Išrenkame duomenis iš Asmuo, tarp nurodytų metų intervalo
     filtruoti_duomenys = Asmuo[Asmuo['year'].between(year_start, year_end)]
 
-    #Suskaičiuojame kiekvienoje savivaldybėje kiekvienais metais esančių atvejų kiekį
+    # Suskaičiuojame kiekvienoje savivaldybėje kiekvienais metais esančių atvejų kiekį
     rezultatas = filtruoti_duomenys.groupby(['savivaldybe', 'year']).size().reset_index(name='count')
 
-    #Gautus rezultatus paverčiame į sveikus skaičius
+    # Gautus rezultatus paverčiame į sveikus skaičius
     rezultatas['count'] = rezultatas['count'].astype(int)
 
     # Atvejų skaičius renkame tik tuos kurie yra didesni už 5
@@ -28,7 +28,7 @@ def pagal_savivaldybes(year_start,year_end):
     # Kuriame grafiką, nusakome jo dydį, koordinačių ašių pavadinimus ir kt.
     plt.figure(figsize=(14,10))
 
-    #Naudojant Seaborn biblioteką nubraižomas stulpelinis grafikas.
+    # Naudojant Seaborn biblioteką nubraižomas stulpelinis grafikas.
     sns.barplot(x='count',y='savivaldybe',  data=rezultatas, hue='savivaldybe', palette='Set2', dodge=False)
     plt.title(f'Profesinių ligų pasiskirstymas pagal savivaldybes nuo {year_start}  iki  {year_end} metų')
     plt.ylabel('Savivaldybės')
@@ -38,25 +38,38 @@ def pagal_savivaldybes(year_start,year_end):
     plt.tight_layout()
     plt.show()
 
-#Profesinės ligos ir jų dažnis
+# Profesinių ligų pasiskirstymas pagal priežastis nurodytu laikotarpiu
 
 def profesiniu_lig_daz(year):
     year = year
+    # Filtruojame duomenis pagal metus ir grupuojame pagal priežastis, skaičiuojame kiekvienos priežasties atvejį tam tikruose metuose
     prof_lig_dazn_per_pas_met = Asmuo[Asmuo['year'] == year].groupby('priezasties_pav')['savivaldybe'].count()
+
+    # Imame duomenis atitinkančius sąlygą, kad ligos atvejis buvo daugiau nei vienas kartas
     prof_lig_dazn_per_pas_met = prof_lig_dazn_per_pas_met[prof_lig_dazn_per_pas_met > 1]
+
+    # Renkame grafikui spalvas
     colors = ["lightskyblue", "lightcoral", "darkgreen", "pink", "lightgreen", "purple", "orange"]
+
+    # Sukuriame skritulinę diagramą
     plt.pie(prof_lig_dazn_per_pas_met, labels=prof_lig_dazn_per_pas_met.index, autopct='%1.1f%%', startangle=90,
             colors=colors,textprops={'fontsize': 6})
     plt.title(f'{year} metų\n' "Profesinės ligos pagal priežastis ")
     plt.savefig("Pictures\profesines_lig_pagal_dazni.png")
     plt.show()
 
-#Profesinių ligų pasiskirstymas pagal lytį
+# Profesinių ligų pasiskirstymas pagal lytį ir metų intervalą
 def lytis(year_start,year_end):
     year_start=year_start
     year_end=year_end
+
+    # Filtruojame duomenis pagal metų intervalą
     lyties_df = Asmuo[Asmuo['year'].between(year_start, year_end)]
+
+    # Grupuojame pagal metus ir lytį atsižvelgiant į ligų skaičių
     rezultatas = lyties_df.groupby(['year', 'lyties_pavadinimas'])['priezasties_pav'].count().unstack(fill_value=0)
+
+    # kuriame linijinę diagramą
     plt.figure(figsize=(10, 6))
     rezultatas.plot(kind='line', marker='o')
     plt.title('Profesinių ligų pasiskirstymas pagal lytį ir metus')
@@ -68,21 +81,33 @@ def lytis(year_start,year_end):
     plt.savefig("Pictures\lytis_linijinis.png")
     plt.show()
 
-#Profesinių ligų skaičiaus kitimas savivaldybėse pasirinktų metų intervale
+# Profesinių ligų skaičiaus kitimas savivaldybėse pasirinktų metų intervale
 def kitimas_metais(year_start, year_end):
     year_start = year_start
     year_end = year_end
+
+    # Filtruojame duomenis pagal metų intervalą
     filtruoti_duomenys = Asmuo[Asmuo['year'].between(year_start, year_end)]
+
+    # Grupuojame duomenis pagal savivaldybes ir metus, skaičiuojame profesinių ligų atvejų skaičių kiekvienai
+    # savivaldybei nurodytų metų intervale
     rezultatas = filtruoti_duomenys.groupby(['savivaldybe', 'year']).size().unstack(fill_value=0)
+
+    # Išrenkame duomenis, kurie didesni arba = 1
     rezultatas = rezultatas[rezultatas >= 1]
+
+    # Pašaliname eilutes, kuriose reikšmė NAN
     rezultatas = rezultatas.dropna()
 
+    # Transformuojame duomenis iš stulpelio į eilutę, kad galėtume pasinaudoti Seaborn biblioteka
     rezultato_ilgis = rezultatas.reset_index().melt(id_vars='savivaldybe', var_name='year', value_name='count')
+
+    # Pasirenkame spalvas grafiko vizualizavimui
     palette = sns.color_palette("Paired", n_colors=len(rezultato_ilgis['savivaldybe'].unique()))
-    # sns.set_theme(style="darkgrid")
     plt.figure(figsize=(15, 7))
+
+    # Kuriame linijinę diagramą naudodami Seaborn biblioteka
     sns.lineplot(data=rezultato_ilgis, x='year', y='count', hue='savivaldybe', marker='o', palette=palette)
-    # sns.color_palette("dark:#5A9_r", as_cmap=True)
     plt.title(f'Profesinių ligų skaičiaus kitimas savivaldybėse {year_start}-{year_end} metais')
     plt.xlabel('Metai')
     plt.ylabel('Ligų skaičius')
@@ -139,8 +164,8 @@ def regresija(year_start,year_end):
 
 
 
-pagal_savivaldybes(2013,2023)
+# pagal_savivaldybes(2013,2023)
 # profesiniu_lig_daz(2019)
 # lytis(2013,2023)
-# kitimas_metais(2005,2023)
+kitimas_metais(2005,2023)
 # regresija(2013,2023)
