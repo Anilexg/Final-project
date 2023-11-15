@@ -30,23 +30,23 @@ Getting data from URL ("https://get.data.gov.lt/datasets/gov/hi/profesines/Asmuo
 
 This is the main project file where all analysis were made. All visuals are controlled by functions, which helps to separate all graphs in the code.
 
-For example, if you call "pagal_savivaldybes()" you will receive this view:
+Function "pagal_savivaldybes()" gives this graph:
 
 ![pagal_savivaldybes.png](Pictures%2Fpagal_savivaldybes.png)
 
-For example if you call "profesiniu_lig_dazni()" you will receive this view:
+Function "profesiniu_lig_dazni()" gives this graph:
 
 ![profesines_lig_pagal_dazni.png](Pictures%2Fprofesines_lig_pagal_dazni.png)
 
-For example if you call "lytis()" you will receive this view:
+Function "lytis()" gives this graph:
 
 ![lytis_linijinis.png](Pictures%2Flytis_linijinis.png)
 
-For example if you call "kitimas_metais()" you will receive this view:
+Function "kitimas_metais()" gives this graph:
 
 ![pokytis.png](Pictures%2Fpokytis.png)
 
-For example if you call "regresija()" you will receive this view:
+Function "regresija()" gives this graph:
 
 ![ regresija.png](Pictures%2F%20regresija.png)
 
