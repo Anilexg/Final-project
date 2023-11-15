@@ -1,10 +1,10 @@
 import pandas as pd
 # from web_scrap import scrape_table
 #
-# # Kreipiamės į funkciją iš web_scrap.py, kad gautime duomenis iš interneto puslapio lentelės
+# # Kreipiamės į funkciją iš web_scrap.py, kad gautume duomenis iš interneto puslapio lentelės
 # asmuo = scrape_table()
 #
-# # Gauti duomenys keičiami į Pandas DataFrame su nurodytomis stulpelių pavadinimais
+# # Gauti duomenys keičiami į Pandas DataFrame su nurodytais stulpelių pavadinimais
 # asmuo = pd.DataFrame(asmuo,columns=['id','m_id','pagr_tlk_kodas._id','pagr_tlk_pav._id','papild_tlk_kodas._id',
 #                                     'papild_tlk_pav._id','ligos_eiga','itarta_pav','itarta_kodas','priezasties_kodas',
 #                                     'priezasties_pav','lyties_kodas','lyties_pavadinimas','savivaldybe','year','quarter'])
@@ -17,10 +17,10 @@ import pandas as pd
 # Kadangi interneto svetaineje yra apribojimas iki 100 eilučių, mūsų pasirinktas variantas netenkina, todėl tenka kreiptis į
 # duomenu bazeje pateiktus csv failus, kad analizė būtų vaizdingesnė ir pilnesnė.
 
-# Duomenų gavimas iš internetinio šaltinio
+# Funkcija uomenų gavimui iš internetinio šaltinio
 def get_data():
 
-    # Nurodme interneto puslapio URL, iš kurio imsime duomenis
+    # Nurodome interneto puslapio URL, iš kurio imsime duomenis
     url = "https://get.data.gov.lt/datasets/gov/hi/profesines/Asmuo/:format/csv"
 
     # Perkeliame duomenis iš CSV formato internetinio šaltinio į Pandas DataFrame.

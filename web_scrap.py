@@ -3,10 +3,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
-# Apsirašome draiverių inicializavimą
+# Apsirašome draiverių iniciavimą
 service = Service(ChromeDriverManager().install())
 
-#Atidarome naują Chrome naršyklės langą, kuris valdomas Selenium biblioteka
+# Atidarome naują Chrome naršyklės langą, kuris valdomas Selenium biblioteka
 driver = webdriver.Chrome(service=service)
 driver.implicitly_wait(10)
 
@@ -15,7 +15,7 @@ def scrape_table():
     # Nurodme interneto puslapio URL, iš kurio imsime duomenis
     url="https://get.data.gov.lt/datasets/gov/hi/profesines/Asmuo"
 
-    # Atidaro nurodytą URL Chrome naršyklėje
+    # Atidarome nurodytą URL Chrome naršyklėje
     driver.get(url)
 
     # Ieškome <table> elemento
@@ -32,7 +32,7 @@ def scrape_table():
         # Kiekvienai eilutei (tr) suranda visus langelių elementus (td) ir išgauna teksto reikšmes
         row = [item.text for item in tr.find_elements(By.XPATH, './/td')]
 
-        # Rastos teksto duomenų eilutė pridedamos prie sąrašo
+        # Rastos teksto duomenų eilutė pridedamos prie sąrašo data
         data.append(row)
 
 
