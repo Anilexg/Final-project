@@ -26,17 +26,17 @@ Used database adapter: psycopg2
 
 Getting data from URL ("https://get.data.gov.lt/datasets/gov/hi/profesines/Asmuo").
 
-##### analize.py
+### Analize.py
 
 This is the main project file where all analysis were made. All visuals are controlled by functions, which helps to separate all graphs in the code.
 
 For example, if you call "pagal_savivaldybes()" you will receive this view:
 
-![pagal_savivaldybes_2022.png](Pictures%2Fpagal_savivaldybes_2022.png)
+![pagal_savivaldybes.png](Pictures%2Fpagal_savivaldybes.png)
 
-For example if you call "profesiniu_lig_daz(year)" you will receive this view:
+For example if you call "profesiniu_lig_dazni()" you will receive this view:
 
-![profesines_lig_pagal_priez.png](Pictures%2Fprofesines_lig_pagal_priez.png)
+![profesines_lig_pagal_dazni.png](Pictures%2Fprofesines_lig_pagal_dazni.png)
 
 For example if you call "lytis()" you will receive this view:
 
@@ -52,6 +52,5 @@ For example if you call "regresija()" you will receive this view:
 
 ### _Conclution_
 
-An analysis of the Occupational Diseases List shows that in 2022, the municipality of Telšiai has the highest number of cases. Since 2005, the most frequent diagnosis has been Mechanical vibrations. In terms of occupational diseases by gender, males are the leading group in the period from 2014 to 2022. The graph showing the evolution of occupational diseases in the municipalities clearly shows a decrease in the number of cases. This is likely to be influenced by the rapid development of technology and occupational safety requirements. The last graph shows a selection of municipalities where the number of occupational diseases is increasing in a linear regression, i.e. there is an upward trend in the number of cases over the period shown in the graph.
-
+An analysis of the Occupational Diseases List shows that since 2013 to 2023 in the municipality of Mažeikiai has the highest number of cases. Since 2005, the most frequent diagnosis has been Mechanical vibrations. In terms of occupational diseases by gender, males are the leading group in the period from 2014 to 2022. The graph showing the evolution of occupational diseases in the municipalities clearly shows a decrease in the number of cases. This is likely to be influenced by the rapid development of technology and occupational safety requirements. The last graph shows a selection of municipalities where the number of occupational diseases is increasing in a linear regression, i.e. there is an upward trend in the number of cases over the period shown in the graph.
 
