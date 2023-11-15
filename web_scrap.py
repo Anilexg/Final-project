@@ -8,7 +8,8 @@ service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service)
 driver.implicitly_wait(10)
 
-def scrape_table(url):
+def scrape_table():
+    url="https://get.data.gov.lt/datasets/gov/hi/profesines/Asmuo"
     driver.get(url)
 
     tbody = driver.find_element(By.XPATH, '//html/body/div[2]/table')
@@ -23,4 +24,4 @@ def scrape_table(url):
 
 
 
-# scrape_table("https://get.data.gov.lt/datasets/gov/hi/profesines/Asmuo")
+scrape_table()

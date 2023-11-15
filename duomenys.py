@@ -1,8 +1,8 @@
 import pandas as pd
-
-
-
-# asmuo=scrape_table("https://get.data.gov.lt/datasets/gov/hi/profesines/Asmuo")
+# from web_scrap import scrape_table
+#
+#
+# asmuo = scrape_table()
 # asmuo = pd.DataFrame(asmuo,columns=['id','m_id','pagr_tlk_kodas._id','pagr_tlk_pav._id','papild_tlk_kodas._id',
 #                                     'papild_tlk_pav._id','ligos_eiga','itarta_pav','itarta_kodas','priezasties_kodas',
 #                                     'priezasties_pav','lyties_kodas','lyties_pavadinimas','savivaldybe','year','quarter'])
