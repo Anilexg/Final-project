@@ -8,9 +8,8 @@ Asmuo = get_data()
 Asmuo = pd.DataFrame(Asmuo)
 
 #Profesinių ligų pasiskirstymas pagal savivaldybes 2022 metais
-def pagal_savivaldybes():
-
-    year = 2022
+def pagal_savivaldybes(year):
+    year = year
 
     pagal_regiona=Asmuo[Asmuo['year'] == year].groupby('savivaldybe')['year'].count()
     pagal_regiona_sorted = pagal_regiona.sort_values(ascending=False)
@@ -39,9 +38,9 @@ def profesiniu_lig_daz(year):
     plt.show()
 
 #Profesinių ligų pasiskirstymas pagal lytį
-def lytis():
-    year_start = 2013
-    year_end = 2023
+def lytis(year_start,year_end):
+    year_start=year_start
+    year_end=year_end
     lyties_df = Asmuo[Asmuo['year'].between(year_start, year_end)]
     rezultatas = lyties_df.groupby(['year', 'lyties_pavadinimas'])['priezasties_pav'].count().unstack(fill_value=0)
     plt.figure(figsize=(10, 6))
@@ -56,10 +55,9 @@ def lytis():
     plt.show()
 
 #Profesinių ligų skaičiaus kitimas savivaldybėse pasirinktų metų intervale
-def kitimas_metais():
-
-    year_start = 2005
-    year_end = 2023
+def kitimas_metais(year_start, year_end):
+    year_start = year_start
+    year_end = year_end
     filtruoti_duomenys = Asmuo[Asmuo['year'].between(year_start, year_end)]
     rezultatas = filtruoti_duomenys.groupby(['savivaldybe', 'year']).size().unstack(fill_value=0)
     rezultatas = rezultatas[rezultatas >= 1]
@@ -80,9 +78,9 @@ def kitimas_metais():
     plt.savefig("Pictures\pokytis.png")
     plt.show()
 
-def regresija():
-    year_start = 2013
-    year_end = 2023
+def regresija(year_start,year_end):
+    year_start = year_start
+    year_end = year_end
     filtruoti_duomenys = Asmuo[Asmuo['year'].between(year_start, year_end)]
 
     rezultatas = filtruoti_duomenys.groupby(['savivaldybe', 'year']).size().unstack(fill_value=0)
@@ -103,8 +101,7 @@ def regresija():
 
     plt.figure(figsize=(15, 7))
     plt.title('Tendencijų linijos pagal Savivaldybe ir metus')
-    plt.xlabel('Metai')
-    plt.ylabel('Skaičius')
+
     plt.xticks(rotation=45, ha='right')
 
     slopes = {}
@@ -121,13 +118,15 @@ def regresija():
             )
     plt.legend(title='Savivaldybe', bbox_to_anchor=(1.05, 1), loc='upper left')
     plt.tight_layout()
+    plt.xlabel('Metai')
+    plt.ylabel('Skaičius')
     plt.savefig("Pictures\ regresija.png")
     plt.show()
 
 
 
-kitimas_metais()
-# pagal_savivaldybes()
-# profesiniu_lig_daz(2019)
-# lytis()
-# regresija()
+pagal_savivaldybes(2022)
+profesiniu_lig_daz(2019)
+lytis(2013,2023)
+kitimas_metais(2005,2023)
+regresija(2013,2023)
