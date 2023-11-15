@@ -4,18 +4,31 @@ from duomenys import get_data
 import matplotlib.pyplot as plt
 from scipy.stats import linregress
 
+# Įkeliame duomenis iš funkcijos
 Asmuo = get_data()
+# Gautus duomenis paverčiame į DataFrame
 Asmuo = pd.DataFrame(Asmuo)
 
-#Profesinių ligų pasiskirstymas pagal savivaldybes 2022 metais
+#Profesinių ligų pasiskirstymas pagal savivaldybes pasirinktų metų intervale
 def pagal_savivaldybes(year_start,year_end):
     year_start = year_start
     year_end = year_end
+    #Išrenkame duomenis iš Asmuo, tarp nurodytų metų intervalo
     filtruoti_duomenys = Asmuo[Asmuo['year'].between(year_start, year_end)]
+
+    #Suskaičiuojame kiekvienoje savivaldybėje kiekvienais metais esančių atvejų kiekį
     rezultatas = filtruoti_duomenys.groupby(['savivaldybe', 'year']).size().reset_index(name='count')
+
+    #Gautus rezultatus paverčiame į sveikus skaičius
     rezultatas['count'] = rezultatas['count'].astype(int)
+
+    # Atvejų skaičius renkame tik tuos kurie yra didesni už 5
     rezultatas = rezultatas[rezultatas['count'] > 5]
+
+    # Kuriame grafiką, nusakome jo dydį, koordinačių ašių pavadinimus ir kt.
     plt.figure(figsize=(14,10))
+
+    #Naudojant Seaborn biblioteką nubraižomas stulpelinis grafikas.
     sns.barplot(x='count',y='savivaldybe',  data=rezultatas, hue='savivaldybe', palette='Set2', dodge=False)
     plt.title(f'Profesinių ligų pasiskirstymas pagal savivaldybes nuo {year_start}  iki  {year_end} metų')
     plt.ylabel('Savivaldybės')
