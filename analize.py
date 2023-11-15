@@ -8,19 +8,20 @@ Asmuo = get_data()
 Asmuo = pd.DataFrame(Asmuo)
 
 #Profesinių ligų pasiskirstymas pagal savivaldybes 2022 metais
-def pagal_savivaldybes(year):
-    year = year
-
-    pagal_regiona=Asmuo[Asmuo['year'] == year].groupby('savivaldybe')['year'].count()
-    pagal_regiona_sorted = pagal_regiona.sort_values(ascending=False)
-    pagal_regiona = pagal_regiona_sorted[pagal_regiona_sorted> 5]
+def pagal_savivaldybes(year_start,year_end):
+    year_start = year_start
+    year_end = year_end
+    filtruoti_duomenys = Asmuo[Asmuo['year'].between(year_start, year_end)]
+    rezultatas = filtruoti_duomenys.groupby(['savivaldybe', 'year']).size().reset_index(name='count')
+    rezultatas['count'] = rezultatas['count'].astype(int)
+    rezultatas = rezultatas[rezultatas['count'] > 5]
     plt.figure(figsize=(14,10))
-    pagal_regiona.plot(kind='bar', color='green')
-    plt.title('Profesinių ligų pasiskirstymas pagal savivaldybes 2022 metais')
-    plt.ylabel('Atvejų_skaičius')
-    plt.xticks(rotation=25,ha='right')
+    sns.barplot(x='count',y='savivaldybe',  data=rezultatas, hue='savivaldybe', palette='Set2', dodge=False)
+    plt.title(f'Profesinių ligų pasiskirstymas pagal savivaldybes nuo {year_start}  iki  {year_end} metų')
+    plt.ylabel('Savivaldybės')
+    plt.xlabel('Atvejų_skaičius')
     plt.legend([])
-    plt.savefig("Pictures\pagal_savivaldybes_2022.png")
+    plt.savefig("Pictures\pagal_savivaldybes.png")
     plt.tight_layout()
     plt.show()
 
@@ -125,8 +126,8 @@ def regresija(year_start,year_end):
 
 
 
-pagal_savivaldybes(2022)
-profesiniu_lig_daz(2019)
-lytis(2013,2023)
-kitimas_metais(2005,2023)
-regresija(2013,2023)
+pagal_savivaldybes(2013,2023)
+# profesiniu_lig_daz(2019)
+# lytis(2013,2023)
+# kitimas_metais(2005,2023)
+# regresija(2013,2023)
