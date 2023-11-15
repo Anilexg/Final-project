@@ -26,7 +26,7 @@ Used database adapter: psycopg2
 
 Getting data from URL ("https://get.data.gov.lt/datasets/gov/hi/profesines/Asmuo").
 
-##### analize.py
+### Analize.py
 
 This is the main project file where all analysis were made. All visuals are controlled by functions, which helps to separate all graphs in the code.
 
