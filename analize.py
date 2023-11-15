@@ -117,44 +117,69 @@ def kitimas_metais(year_start, year_end):
     plt.savefig("Pictures\pokytis.png")
     plt.show()
 
+# Tiriame profesinių ligų atvejų skaičiaus kitimą naudodami linijinę regresiją
 def regresija(year_start,year_end):
     year_start = year_start
     year_end = year_end
+
+    # Filtruojame duomenis pagal metų intervalą
     filtruoti_duomenys = Asmuo[Asmuo['year'].between(year_start, year_end)]
 
+    # Grupuojame duomenis pagal savivaldybes ir metus, skaičiuojame profesinių ligų atvejų skaičių kiekvienai
+    # savivaldybei nurodytų metų intervale
     rezultatas = filtruoti_duomenys.groupby(['savivaldybe', 'year']).size().unstack(fill_value=0)
 
+    # Sumuojame ligų atvejų skaičių
     rezultatas_per_metus_savivaldybe = rezultatas.sum(axis=1)
 
+    # Išrenkame tik tas savivaldybes, kurios turi bent vieną ligos atvejį
     filtruota_savivaldybes = rezultatas_per_metus_savivaldybe[rezultatas_per_metus_savivaldybe > 0].index
 
+    # Rezultatas apie savivaldybes kuriose yra bent vienas atvejis
     filtruoti_rezultatas = rezultatas.loc[filtruota_savivaldybes]
 
+    # Pertvarkome duomenis, kad būtų paprasčiau juos atvaizduoti linijinės regresijos analizėje
     filtruoti_rezultatas_ilgis = filtruoti_rezultatas.reset_index().melt(id_vars='savivaldybe', var_name='year',
                                                                          value_name='count')
+    # Konvertuojame metų stulpelį į skaičių
     filtruoti_rezultatas_ilgis['year'] = pd.to_numeric(filtruoti_rezultatas_ilgis['year'], errors='coerce')
 
+    # Pašaliname eilutes kuriose trūksta duomenų
     filtruoti_rezultatas_ilgis = filtruoti_rezultatas_ilgis.dropna(subset=['year'])
 
+    # Konvertuojame metų stulpelį į sveikus skaičius
     filtruoti_rezultatas_ilgis['year'] = filtruoti_rezultatas_ilgis['year'].astype(int)
 
+    # Kuriame grafiką
     plt.figure(figsize=(15, 7))
-    plt.title('Tendencijų linijos pagal Savivaldybe ir metus')
-
+    plt.title('Linijinė regresija pagal savivaldybes ir metus')
     plt.xticks(rotation=45, ha='right')
 
+    # Sukuriame tuščią žodyną
     slopes = {}
 
+    # Pradedame ciklą, grupuojame duomenis pagal savivaldybes
     for name, group in filtruoti_rezultatas_ilgis.groupby('savivaldybe'):
+
+        # Skaičiuojame linijinės regresijos tendenciją kiekvienai savivaldybei
         slope, intercept, r_value, p_value, std_err = linregress(x=group['year'], y=group['count'])
+
+        # Įrašome į žodyną
         slopes[name] = slope
+
+    # Pradedame ciklą, grupuojame duomenis pagal savivaldybes
     for name, group in filtruoti_rezultatas_ilgis.groupby('savivaldybe'):
+
+        # Tikriname ar žodyno elementas teigiamas
         if slopes[name] > 0:
+            # jei > 0, sukuria regresijos grafiką su atitinkama savivaldybe
             sns.regplot(
                 x='year', y='count', data=group,
                 label=name, scatter_kws={'s': 50},
                 line_kws={'linewidth': 2}, ci=None
             )
+
+    # Grafiko parametrai
     plt.legend(title='Savivaldybe', bbox_to_anchor=(1.05, 1), loc='upper left')
     plt.tight_layout()
     plt.xlabel('Metai')
@@ -167,5 +192,5 @@ def regresija(year_start,year_end):
 # pagal_savivaldybes(2013,2023)
 # profesiniu_lig_daz(2019)
 # lytis(2013,2023)
-kitimas_metais(2005,2023)
-# regresija(2013,2023)
+# kitimas_metais(2005,2023)
+regresija(2013,2023)
