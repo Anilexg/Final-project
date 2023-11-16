@@ -16,7 +16,7 @@ In this project we used Python, CSV files, and a PostgreSQL database showcasing 
 
 ### _Applied knowledge:_
 
-Used libraries: Pandas, Numpy, MatplotLib, SeaBorn, Selenium,SciPy
+Used libraries: Pandas, MatplotLib, SeaBorn, Selenium,SciPy
 
 ##### _postgres_.py
 
